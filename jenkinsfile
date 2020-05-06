@@ -6,5 +6,21 @@ pipeline{
                 echo 'hello world okk'
             }
         }
+        stage('Master Branch'){
+            when{
+                branch 'master'
+            }
+            steps{
+                echo 'master commit'
+            }
+        }
+        stage('Feature Branch'){
+            when{
+                branch 'feature'
+            }
+            steps{
+                echo 'feature commit'
+            }
+        }
     }
 }
