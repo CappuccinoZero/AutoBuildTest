@@ -6,24 +6,15 @@ pipeline{
                 echo 'hello world'
             }
         }
-        stage('feature'){
-            when{
-                beforeAgent true
-                branch 'feature'
-            }
-            steps{
-                echo 'feature branch'
-            }
-        }
-
         stage('master'){
-                when{
-                    beforeAgent true
-                    branch 'master'
-               }
-              steps{
-                    echo 'master branch'
-              }
+            if($branch=='master')
+                echo 'master branch'
+            fi
+        }
+        stage('master'){
+             if($branch=='feature')
+                  echo 'feature branch'
+             fi
         }
     }
 }
