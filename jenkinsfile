@@ -11,7 +11,7 @@ pipeline{
                 echo 'master branch'
             fi
         }
-        stage('master'){
+        stage('feature'){
              if($branch=='feature')
                   echo 'feature branch'
              fi
