@@ -3,27 +3,8 @@ pipeline{
     stages{
         stage('Example'){
             steps{
-                echo 'hello world'
+                echo 'hello world ok'
             }
-        }
-        stage('feature'){
-            when{
-                beforeAgent true
-                branch 'feature'
-            }
-            steps{
-                echo 'feature branch'
-            }
-        }
-
-        stage('master'){
-                when{
-                    beforeAgent true
-                    branch 'master'
-               }
-              steps{
-                    echo 'master branch'
-              }
         }
     }
 }
