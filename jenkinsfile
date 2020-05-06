@@ -24,8 +24,8 @@ pipeline{
         }
         stage('Get'){
             steps{
-                def result = $(curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch=feature)
-                echo result
+                def str = 'world'
+                print "hello ${str}"
             }
         }
     }
