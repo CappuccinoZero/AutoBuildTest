@@ -8,7 +8,7 @@ pipeline{
         }
         stage('master'){
             steps{
-                 if[$branch='feature']:then
+                 if [$branch='feature']:then
                          echo 'feature branch'
                  fi
             }
