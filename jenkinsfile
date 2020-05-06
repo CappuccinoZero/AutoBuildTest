@@ -7,14 +7,18 @@ pipeline{
             }
         }
         stage('master'){
-            if($branch=='master')
-                echo 'master branch'
-            fi
+            steps{
+                 if($branch=='feature')
+                         echo 'feature branch'
+                 fi
+            }
         }
         stage('feature'){
-             if($branch=='feature')
-                  echo 'feature branch'
-             fi
+             steps{
+                if($branch=='feature')
+                      echo 'feature branch'
+                fi
+             }
         }
     }
 }
