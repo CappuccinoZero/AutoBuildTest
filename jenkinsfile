@@ -24,8 +24,10 @@ pipeline{
         }
         stage('Get'){
             steps{
-                def str = 'world'
-                print "hello ${str}"
+                script{
+                    def str = 'world'
+                    print "hello ${str}"
+                }
             }
         }
     }
