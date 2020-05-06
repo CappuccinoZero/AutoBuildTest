@@ -6,19 +6,5 @@ pipeline{
                 echo 'hello world'
             }
         }
-        stage('master'){
-            steps{
-                 if [$branch='feature']:then
-                         echo 'feature branch'
-                 fi
-            }
-        }
-        stage('feature'){
-             steps{
-                if[$branch='feature'];then
-                      echo 'feature branch'
-                fi
-             }
-        }
     }
 }
