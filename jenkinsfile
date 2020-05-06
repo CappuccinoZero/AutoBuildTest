@@ -24,7 +24,7 @@ pipeline{
         }
         stage('Get'){
             steps{
-                result = $(curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch=feature)
+                def result = $(curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch=feature)
                 echo result
             }
         }
