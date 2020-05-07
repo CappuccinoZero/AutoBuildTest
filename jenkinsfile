@@ -3,50 +3,6 @@ import hudson.model.*;
 pipeline{
     agent any
     stages{
-        stage('Create Gradle.Build'){
-            steps{
-                script{
-                    def content = '''
-                    def builderFile = rootProject.file("JenkinsBuildFile.properties")
-                    def builderProperties =new Properties()
-                    def verCode = 1
-                    def verName = "0.0.1"
-                    if (builderFile.canRead()){
-                        builderProperties.load(new FileInputStream(builderFile))
-                        verCode = Integer.parseInt(builderProperties['VERSION_CODE'])
-                        verName = builderProperties['VERSION_NAME']
-                    }
-
-                    android {
-                        defaultConfig {
-                            versionCode verCode
-                            versionName verName
-                        }
-
-                        buildTypes {
-                                release {
-                                    minifyEnabled false
-                                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                                }
-                                debug{
-                                    minifyEnabled false
-                                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                                }
-                                applicationVariants.all{ variant ->
-                                    variant.outputs.all{
-                                        if (variant.name.endsWith("debug")){
-                                            outputFileName = "debug_v${defaultConfig.versionCode}_${defaultConfig.versionName}.apk"
-                                        }
-                                    }
-                                }
-                        }
-
-                    }
-                    '''
-                    writeFile file: "gradle_temp.txt", text: content, encoding: "UTF-8"
-                }
-            }
-        }
         stage('REQUEST VERSION'){
             steps{
                 script{
@@ -92,14 +48,16 @@ pipeline{
                      buildTypes {
                         release {
                             minifyEnabled false
-                            signingConfig signingConfigs.release
                             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                         }
-
+                        debug{
+                            minifyEnabled false
+                            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                        }
                         applicationVariants.all{ variant ->
-                        variant.outputs.all{
-                        if (variant.name.endsWith("debug")){
-                                 outputFileName = "debug_v${defaultConfig.versionCode}_${defaultConfig.versionName}.apk"
+                            variant.outputs.all{
+                                if (variant.name.endsWith("debug")){
+                                    outputFileName = "debug_v${defaultConfig.versionCode}_${defaultConfig.versionName}.apk"
                                     }
                                 }
                             }
