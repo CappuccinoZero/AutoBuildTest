@@ -110,10 +110,14 @@ pipeline{
                     '''
 
                     def build_content = readFile file: "./app/build.gradle", encoding: "UTF-8"
-                    sh 'cp -f ./app/build.gradle ./app/build.gradle.backup'
+                    try{
+                        sh 'cp -f ./local.properties ./local.properties.backup'
+                    }catch(exc)
                     writeFile file: "./app/build.gradle", text: build_content+insert_content, encoding: "UTF-8"
 
-                    sh 'cp -f ./local.properties ./local.properties.backup'
+                    try{
+                        sh 'cp -f ./local.properties ./local.properties.backup'
+                    }catch(exc){}
                     writeFile file: "./local.properties", text: "sdk.dir=/usr/local/android-sdk-linux", encoding: "UTF-8"
                     writeFile file: "./JenkinsBuildFile.properties", text: config_str, encoding: "UTF-8"
                 }
@@ -126,8 +130,13 @@ pipeline{
         }
         stage('RESTORE CONFIG FILE'){
             steps{
-                sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
-                sh 'mv -f ./local.properties.backup ./local.properties'
+                try{
+                    sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
+                }catch(exc)
+
+                try{
+                    sh 'mv -f ./local.properties.backup ./local.properties'
+                }catch(exc)
             }
         }
     }
