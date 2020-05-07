@@ -15,6 +15,7 @@ pipeline{
 
                         print "结果code："+result_map.code
                         print "结果msg："+result_map.msg
+                        sh 'pwd'
                     }else{
                         sh 'exit 1'
                     }
