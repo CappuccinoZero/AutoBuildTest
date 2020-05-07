@@ -1,3 +1,4 @@
+import groovy.json.JsonOutput
 pipeline{
     agent none
     stages{
@@ -25,8 +26,14 @@ pipeline{
         stage('Get'){
             steps{
                 script{
-                    def str = 'world'
-                    print "hello ${str}"
+                    def url = new URL("http://localhost:8888/jenkinsApi/postData")
+                    def conn = url.openConnection()
+                    conn.setRequestMethod("GET")
+                    conn.setRequestProperty("Content-Type", "application/json")
+                    conn.connect()
+                    def code = conn.getResponseCode()
+                    println conn.content.text
+                    println code
                 }
             }
         }
