@@ -130,13 +130,15 @@ pipeline{
         }
         stage('RESTORE CONFIG FILE'){
             steps{
-                try{
-                    sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
-                }catch(exc){}
+                script{
+                    try{
+                        sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
+                    }catch(exc){}
 
-                try{
-                    sh 'mv -f ./local.properties.backup ./local.properties'
-                }catch(exc){}
+                    try{
+                        sh 'mv -f ./local.properties.backup ./local.properties'
+                    }catch(exc){}
+                }
             }
         }
     }
