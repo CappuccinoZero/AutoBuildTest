@@ -1,4 +1,11 @@
 import groovy.json.JsonOutput
+import org.apache.http.HttpResponse
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.impl.client.CloseableHttpClient
+import org.apache.http.impl.client.DefaultHttpClient
+import org.apache.http.util.EntityUtils
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 pipeline{
     agent none
     stages{
@@ -26,14 +33,17 @@ pipeline{
         stage('Get'){
             steps{
                 script{
-                    def url = new URL("http://localhost:8888/jenkinsApi/postData")
-                    def conn = url.openConnection()
-                    conn.setRequestMethod("GET")
-                    conn.setRequestProperty("Content-Type", "application/json")
-                    conn.connect()
-                    def code = conn.getResponseCode()
-                    println conn.content.text
-                    println code
+                    CloseableHttpClient httpClient = new DefaultHttpClient();
+                    url = "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder";
+                    HttpGet method1 = new HttpGet(url);
+                    method1.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)" +
+                            " Chrome/56.0.2924.87 Safari/537.36");
+                    String retVal = "";
+                    // 转换参数并设置编码格式
+                    HttpResponse result1;
+                    result1 = httpClient.execute(method1);
+                    retVal = EntityUtils.toString(result1.getEntity(), "utf-8");
+                    println retVal
                 }
             }
         }
