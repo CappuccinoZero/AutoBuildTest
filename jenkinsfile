@@ -19,8 +19,8 @@ pipeline{
                         def result =sh(script:"cat index.json",returnStdout: true)
                         def result_map = readJSON text: result
 
-                        echo "结果code："+result_map['code']
-                        echo "结果msg："+result_map['msg']
+                        echo "结果code："+result_map.code
+                        echo "结果msg："+result_map.msg
                         //sh "pwd"
                     }else{
                         sh 'exit 1'
