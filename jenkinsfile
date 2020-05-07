@@ -69,12 +69,8 @@ pipeline{
                         sh 'rm -rf index.json'
                         def result_map = readJSON text: result
                         if(result_map.code == 1){
-                            def version_Code = result_map.version_Code
-                            def version_Name = result_map.version_Name
-                            environment {version_code=version_Code}
-                            environment {version_name=version_Name}
-                            sh "printenv"
-                            echo "${env.version_code}"
+                            version_Code = result_map.version_Code
+                            version_Name = result_map.version_Name
                         }else{
                             sh 'exit 1'
                         }
