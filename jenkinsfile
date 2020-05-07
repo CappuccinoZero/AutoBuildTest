@@ -7,7 +7,7 @@ pipeline{
             steps{
                 script{
                     def result = sh(script:"gradle_config.txt",returnStdout: true)
-                    print file.txt
+                    print result
                 }
             }
         }
