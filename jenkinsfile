@@ -26,7 +26,7 @@ pipeline{
             curl "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder" > index.json
             steps{
                 script{
-                    
+                    print('hello get')
                 }
             }
         }
