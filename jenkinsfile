@@ -6,7 +6,7 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    File file = File("./gradle_config.txt")
+                    def result = sh(script:"gradle_config.txt",returnStdout: true)
                     print file.txt
                 }
             }
@@ -18,7 +18,7 @@ pipeline{
                     def url = "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch="+branch
                     def code =sh(script:"curl ${url} > index.json",returnStatus:true)
                     if(code == 0){
-                        def result =sh(script:"cat index.json",returnStdout: true)
+                        def result = sh(script:"cat index.json",returnStdout: true)
                         sh 'rm -rf index.json'
                         def result_map = readJSON text: result
                         if(result_map.code == 1){
