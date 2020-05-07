@@ -54,7 +54,7 @@ pipeline{
 
                     }
                     '''
-                    print content
+                    sh """echo "${content} > gradle_temp.txt""""
                 }
             }
         }
