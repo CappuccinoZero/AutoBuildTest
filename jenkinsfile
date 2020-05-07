@@ -82,7 +82,8 @@ pipeline{
         }
         stage('PREPARING CONFIG'){
             steps{
-            echo 'ok'
+            echo version_Code
+            echo version_Name
             }
         }
     }
