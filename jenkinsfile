@@ -112,7 +112,7 @@ pipeline{
                     def build_content = readFile file: "./app/build.gradle", encoding: "UTF-8"
                     try{
                         sh 'cp -f ./local.properties ./local.properties.backup'
-                    }catch(exc)
+                    }catch(exc){}
                     writeFile file: "./app/build.gradle", text: build_content+insert_content, encoding: "UTF-8"
 
                     try{
@@ -132,11 +132,11 @@ pipeline{
             steps{
                 try{
                     sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
-                }catch(exc)
+                }catch(exc){}
 
                 try{
                     sh 'mv -f ./local.properties.backup ./local.properties'
-                }catch(exc)
+                }catch(exc){}
             }
         }
     }
