@@ -6,7 +6,7 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    def content = """
+                    def content = '''
                     def builderProperties =new Properties()
                     def verCode = 1
                     def verName = "0.0.1"
@@ -53,7 +53,7 @@ pipeline{
                         }
 
                     }
-                    """
+                    '''
                     print content
                 }
             }
