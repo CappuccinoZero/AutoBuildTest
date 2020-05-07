@@ -1,5 +1,10 @@
 import groovy.json.JsonSlurper
 import groovy.json.JsonSlurperClassic
+@NonCPS
+def jsonParse(def json) {
+    new groovy.json.JsonSlurperClassic().parseText(json) // 重点
+}
+
 pipeline{
     agent any
     stages{
@@ -18,7 +23,7 @@ pipeline{
                     if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
                         def result_json = new JsonSlurperClassic()
-                        def result_map = result_json.parseText(result)
+                        def result_map = jsonParse(result)
 
                         echo "结果code："+result_map.code
                         echo "结果msg："+result_map.msg
