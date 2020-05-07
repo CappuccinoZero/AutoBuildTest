@@ -2,6 +2,11 @@ import groovy.json.JsonSlurper
 pipeline{
     agent any
     stages{
+        stage('TEST'){
+            steps{
+                sh "gradle -version"
+            }
+        }
         stage('Get'){
             steps{
                 script{
@@ -15,7 +20,6 @@ pipeline{
 
                         print "结果code："+result_map.code
                         print "结果msg："+result_map.msg
-                        sh "gradle -version"
                     }else{
                         sh 'exit 1'
                     }
