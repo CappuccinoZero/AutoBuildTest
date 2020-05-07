@@ -6,12 +6,10 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    def content = """
-                    hello world
-                    """
+                    def content = """hello world"""
                 }
 
-                sh 'echo "${content}" > gradle_temp.txt'
+                sh 'echo "hi,${content}" > gradle_temp.txt'
             }
         }
         stage('Build'){
