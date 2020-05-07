@@ -1,4 +1,5 @@
-import groovy.json.JsonSlurper
+
+import hudson.model.*;
 pipeline{
     agent any
     stages{
