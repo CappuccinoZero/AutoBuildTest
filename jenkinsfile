@@ -5,6 +5,7 @@ pipeline{
         stage('TEST'){
             steps{
                 sh "gradle -version"
+                sh "pwd"
             }
         }
         stage('Get'){
@@ -18,8 +19,9 @@ pipeline{
                         def result_json = new JsonSlurper()
                         def result_map = result_json.parseText(result)
 
-                        print "结果code："+result_map.code
-                        print "结果msg："+result_map.msg
+                        echo "结果code："+result_map.code
+                        echo "结果msg："+result_map.msg
+                        sh "pwd"
                     }else{
                         sh 'exit 1'
                     }
