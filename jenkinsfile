@@ -10,7 +10,7 @@ pipeline{
         }
         stage('Master Branch'){
             when{
-                branch 'master'
+                branch 'origin/master'
             }
             steps{
                 echo 'master commit'
@@ -18,7 +18,7 @@ pipeline{
         }
         stage('Feature Branch'){
             when{
-                branch 'feature'
+                branch 'origin/feature'
             }
             steps{
                 echo 'feature commit'
