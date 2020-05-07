@@ -48,7 +48,7 @@ pipeline{
         stage('REQUEST VERSION'){
             steps{
                 script{
-                    def branch = "${GIT_BRANCH}"
+                    def branch = "${GIT_BRANCH}".substring(6)
                     def url = "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch="+branch
                     def code =sh(script:"curl ${url} > index.json",returnStatus:true)
                     if(code == 0){
@@ -58,7 +58,7 @@ pipeline{
                             version_Code = result_map.version_Code
                             version_Name = result_map.version_Name
                         }else{
-                            sh 'exit 1'
+                            echo 'api code = -1'
                         }
                     }else{
                         sh 'exit 1'
