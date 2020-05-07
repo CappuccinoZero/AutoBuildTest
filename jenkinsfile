@@ -5,6 +5,7 @@ pipeline{
     stages{
         stage('TEST'){
             steps{
+                sh 'printev'
                 sh "gradle -version"
                 sh "pwd"
             }
