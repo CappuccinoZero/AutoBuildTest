@@ -26,9 +26,9 @@ pipeline{
             steps{
                 script{
                     def code =sh(script:"curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json",returnStatus:true)
-                    if(code != 0){
+                    if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
-                        print result
+                        print "结果："+result
                     }else{
                         sh 'exit 1'
                     }
