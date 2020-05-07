@@ -32,8 +32,8 @@ pipeline{
                         def result_json = new JsonSlurper()
                         def result_map = result_json.parseText(result)
 
-                        print "结果code："+result.code
-                        print "结果msg："+result.msg
+                        print "结果code："+result_map.code
+                        print "结果msg："+result_map.msg
                     }else{
                         sh 'exit 1'
                     }
