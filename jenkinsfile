@@ -24,7 +24,10 @@ pipeline{
         }
         stage('Get'){
             steps{
-                sh 'curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json'
+                script{
+                    def result =sh(script:"curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json",returnStatus:true)
+                    print result
+                }
             }
         }
     }
