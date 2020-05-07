@@ -22,7 +22,7 @@ pipeline{
                     def code =sh(script:"curl ${url} > index.json",returnStatus:true)
                     if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
-                        def result_json = new JsonSlurperClassic()
+                        //def result_json = new JsonSlurperClassic()
                         def result_map = jsonParse(result)
 
                         echo "结果code："+result_map.code
