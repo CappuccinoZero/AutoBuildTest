@@ -1,11 +1,25 @@
-import groovy.json.JsonOutput
-import org.apache.http.HttpResponse
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.CloseableHttpClient
-import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.util.EntityUtils
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.URL
+import java.net.URLConnection
+
+def sendPostRequest(urlString, paramString) {
+    def url = new URL(urlString)
+    def conn = url.openConnection()
+    conn.setDoOutput(true)
+    def writer = new OutputStreamWriter(conn.getOutputStream())
+
+    writer.write(paramString)
+    writer.flush()
+    String line
+    def reader = new BufferedReader(new     InputStreamReader(conn.getInputStream()))
+    while ((line = reader.readLine()) != null) {
+      println line
+    }
+    writer.close()
+    reader.close()
+}
 pipeline{
     agent none
     stages{
@@ -33,17 +47,7 @@ pipeline{
         stage('Get'){
             steps{
                 script{
-                    CloseableHttpClient httpClient = new DefaultHttpClient();
-                    url = "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder";
-                    HttpGet method1 = new HttpGet(url);
-                    method1.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)" +
-                            " Chrome/56.0.2924.87 Safari/537.36");
-                    String retVal = "";
-                    // 转换参数并设置编码格式
-                    HttpResponse result1;
-                    result1 = httpClient.execute(method1);
-                    retVal = EntityUtils.toString(result1.getEntity(), "utf-8");
-                    println retVal
+                    sendPostRequest("https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder","")
                 }
             }
         }
