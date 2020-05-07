@@ -2,33 +2,12 @@ import groovy.json.JsonSlurper
 pipeline{
     agent any
     stages{
-        stage('Example'){
-            steps{
-                sh "printenv"
-                echo "${GIT_BRANCH}"
-                echo "hello world"
-            }
-        }
-        stage('Master Branch'){
-            when{
-                environment name: 'GIT_BRANCH', value: 'origin/master'
-            }
-            steps{
-                echo 'master commit'
-            }
-        }
-        stage('Feature Branch'){
-            when{
-                branch 'origin/feature'
-            }
-            steps{
-                echo 'feature commit'
-            }
-        }
         stage('Get'){
             steps{
                 script{
-                    def code =sh(script:"curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json",returnStatus:true)
+                    def branch = "${GIT_BRANCH}"
+                    def url = "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder?branch="+branch
+                    def code =sh(script:"curl ${url} > index.json",returnStatus:true)
                     if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
                         def result_json = new JsonSlurper()
