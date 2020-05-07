@@ -3,14 +3,57 @@ import hudson.model.*;
 pipeline{
     agent any
     stages{
-        stage('TEST'){
+        stage('Create Gradle.Build'){
             steps{
-                sh 'printenv'
-                sh "gradle -version"
-                sh "pwd"
+                sh 'echo """
+                \n
+                def builderProperties =new Properties()
+                def verCode = 1
+                def verName = "0.0.1"
+                if (builderFile.canRead()){
+                    builderProperties.load(new FileInputStream(builderFile))
+                    verCode = Integer.parseInt(builderProperties['VERSION_CODE'])
+                    verName = builderProperties['VERSION_NAME']
+                }
+
+                android {
+                    defaultConfig {
+                        versionCode verCode
+                        versionName verName
+                    }
+
+                    signingConfigs {
+                        release {
+                            storeFile file(builderProperties['store_path'])
+                            storePassword builderProperties['store_password']
+                            keyAlias builderProperties['key_alias']
+                            keyPassword builderProperties['key_password']
+                            v1SigningEnabled true
+                            v2SigningEnabled true
+                        }
+                    }
+
+                    buildTypes {
+                        release {
+                            minifyEnabled false
+                            signingConfig signingConfigs.release
+                            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                        }
+
+                        applicationVariants.all{ variant ->
+                            variant.outputs.all{
+                                else if (variant.name.endsWith("debug")){
+                                    outputFileName = "${defaultConfig.versionName}.apk"
+                                }
+                            }
+                        }
+                    }
+
+                }
+                """' > temp.txt
             }
         }
-        stage('Get'){
+        stage('Build'){
             steps{
                 script{
                     def branch = "${GIT_BRANCH}"
@@ -18,11 +61,16 @@ pipeline{
                     def code =sh(script:"curl ${url} > index.json",returnStatus:true)
                     if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
+                        sh 'rm -rf index.json'
                         def result_map = readJSON text: result
+                        if(result_map.code == 1){
+                            def version_code = result_map.version_Code
+                            def version_Name = result_map.version_Name
 
-                        echo "结果code："+result_map.code
-                        echo "结果msg："+result_map.msg
-                        sh "pwd"
+                            sh 'cat temp.txt'
+                        }else{
+                            sh 'exit 1'
+                        }
                     }else{
                         sh 'exit 1'
                     }
