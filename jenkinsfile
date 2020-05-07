@@ -104,10 +104,10 @@ pipeline{
                         }
                      }
                     '''
-                    def config_str = '''
+                    def config_str = """
                     VERSION_CODE=${version_Code}
                     VERSION_NAME=${version_Name}
-                    '''
+                    """
 
                     def build_content = readFile file: "./app/build.gradle", encoding: "UTF-8"
                     try{
