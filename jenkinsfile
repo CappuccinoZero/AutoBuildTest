@@ -25,8 +25,13 @@ pipeline{
         stage('Get'){
             steps{
                 script{
-                    def result =sh(script:"curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json",returnStdout: true)
-                    print result
+                    def code =sh(script:"curl https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder > index.json",returnStatus:true)
+                    if(code != 0){
+                        def result =sh(script:"cat index.json",returnStdout: true)
+                        print result
+                    }else{
+                        sh 'exit 1'
+                    }
                 }
             }
         }
