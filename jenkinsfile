@@ -54,7 +54,8 @@ pipeline{
 
                     }
                     '''
-                    sh """echo "${content}" > gradle_temp.txt"""
+                    def command = 'echo ""'+ content + '" > gradle_temp.txt'
+                    print command
                 }
             }
         }
