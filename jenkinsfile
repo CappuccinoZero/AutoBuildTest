@@ -73,6 +73,8 @@ pipeline{
                             def version_Name = result_map.version_Name
                             environment {version_code=version_Code}
                             environment {version_name=version_Name}
+                            echo "printenv"
+                            echo "${env.version_code}"
                         }else{
                             sh 'exit 1'
                         }
@@ -84,7 +86,7 @@ pipeline{
         }
         stage('PREPARING CONFIG'){
             steps{
-                echo "printenv"
+
             }
         }
     }
