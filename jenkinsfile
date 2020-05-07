@@ -84,8 +84,7 @@ pipeline{
         }
         stage('PREPARING CONFIG'){
             steps{
-                echo "${version_code}"
-                echo "${version_name}"
+                echo "printenv"
             }
         }
     }
