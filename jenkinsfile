@@ -57,7 +57,7 @@ pipeline{
                         applicationVariants.all{ variant ->
                             variant.outputs.all{
                                 if (variant.name.endsWith("debug")){
-                                    outputFileName = "debug_v${defaultConfig.versionCode}_${defaultConfig.versionName}.apk"
+                                    outputFileName = "${defaultConfig.versionName}.apk"
                                     }
                                 }
                             }
@@ -98,6 +98,9 @@ pipeline{
                     try{
                         sh 'mv -f ./local.properties.backup ./local.properties'
                     }catch(exc){}
+
+                    sh 'rm -rf index.json'
+                    
                 }
             }
         }
