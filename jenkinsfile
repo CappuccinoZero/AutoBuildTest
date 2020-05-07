@@ -24,12 +24,6 @@ pipeline{
                         }
 
                         buildTypes {
-                            release {
-                                minifyEnabled false
-                                signingConfig signingConfigs.release
-                                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                            }
-
                             applicationVariants.all{ variant ->
                                 variant.outputs.all{
                                     if (variant.name.endsWith("debug")){
