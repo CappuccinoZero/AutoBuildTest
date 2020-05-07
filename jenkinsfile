@@ -6,7 +6,7 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    File file = new File("./gradle_config.txt")
+                    File file = File("./gradle_config.txt")
                     print file.txt
                 }
             }
