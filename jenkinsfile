@@ -105,19 +105,19 @@ pipeline{
                      }
                     '''
                     def build_content = readFile file: "./app/build.gradle", encoding: "UTF-8"
-                    sh 'cp ./app/build.gradle ./app/build.gradle.backup'
-
+                    sh 'cp -f ./app/build.gradle ./app/build.gradle.backup'
+                    writeFile file: "gradle_temp.txt", text: build_content+insert_content, encoding: "UTF-8"
                 }
             }
         }
         stage('BUILD APK AND'){
             steps{
-                echo 'wait'
+                sh 'gradle assembleDebug'
             }
         }
         stage('RESTORE CONFIG FILE'){
             steps{
-                echo 'wait'
+                sh 'mv -f ./app/build.gradle.backup ./app/build.gradle'
             }
         }
     }
