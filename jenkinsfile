@@ -105,7 +105,7 @@ pipeline{
                      }
                     '''
                     def build_content = readFile file: "./app/build.gradle", encoding: "UTF-8"
-                    su 'cp ./app/build.gradle ./app/build.gradle.backup'
+                    sh 'cp ./app/build.gradle ./app/build.gradle.backup'
 
                 }
             }
