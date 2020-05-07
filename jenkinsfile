@@ -11,7 +11,7 @@ pipeline{
         }
         stage('Master Branch'){
             when{
-                branch 'origin/master'
+                environment name: 'GIT_BRANCH', value: 'origin/master'
             }
             steps{
                 echo 'master commit'
