@@ -23,8 +23,8 @@ pipeline{
             }
         }
         stage('Get'){
-            curl "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder" > index.json
             steps{
+                sh curl "https://cloudapi.bytedance.net/faas/services/ttwcxk/invoke/jenkins_apk_builder" > index.json
                 script{
                     print('hello get')
                 }
