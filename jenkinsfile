@@ -58,7 +58,7 @@ pipeline{
                 }
             }
         }
-        stage('Build'){
+        stage('REQUEST VERSION'){
             steps{
                 script{
                     def branch = "${GIT_BRANCH}"
@@ -69,10 +69,10 @@ pipeline{
                         sh 'rm -rf index.json'
                         def result_map = readJSON text: result
                         if(result_map.code == 1){
-                            def version_code = result_map.version_Code
+                            def version_Code = result_map.version_Code
                             def version_Name = result_map.version_Name
-
-                            sh 'cat gradle_temp.txt'
+                            environment {version_code=version_Code}
+                            environment {version_name=version_Name}
                         }else{
                             sh 'exit 1'
                         }
@@ -80,6 +80,12 @@ pipeline{
                         sh 'exit 1'
                     }
                 }
+            }
+        }
+        stage('PREPARING CONFIG'){
+            steps{
+                echo ${version_code}
+                echo ${version_name}
             }
         }
     }
