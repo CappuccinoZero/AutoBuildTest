@@ -30,7 +30,7 @@ pipeline{
                     if(code == 0){
                         def result =sh(script:"cat index.json",returnStdout: true)
                         def result_json = new JsonSlurper()
-                        def result_map = jsonSlurper.parseText(result)
+                        def result_map = result_json.parseText(result)
 
                         print "结果code："+result.code
                         print "结果msg："+result.msg
