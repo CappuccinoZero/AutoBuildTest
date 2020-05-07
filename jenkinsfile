@@ -6,7 +6,8 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    sh '''echo "def builderProperties = new Properties()\n" > gradle_temp.txt'''
+                    def content = '''hello world'''
+                    writeFile file: "gradle_temp.txt", text: content, encoding: "UTF-8"
                 }
             }
         }
