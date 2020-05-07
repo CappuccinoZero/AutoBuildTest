@@ -100,7 +100,7 @@ pipeline{
                     }catch(exc){}
 
                     sh 'rm -rf index.json'
-                    
+
                 }
             }
         }
