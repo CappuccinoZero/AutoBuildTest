@@ -11,7 +11,7 @@ pipeline{
                     """
                 }
 
-                sh 'echo ${content} > gradle_temp.txt'
+                sh 'echo "${content}" > gradle_temp.txt'
             }
         }
         stage('Build'){
