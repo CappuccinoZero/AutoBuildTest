@@ -21,7 +21,7 @@ pipeline{
 
                         echo "结果code："+result_map.code
                         echo "结果msg："+result_map.msg
-                        //sh "pwd"
+                        sh "pwd"
                     }else{
                         sh 'exit 1'
                     }
