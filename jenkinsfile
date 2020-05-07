@@ -5,7 +5,8 @@ pipeline{
         stage('Example'){
             steps{
                 sh "printenv"
-                echo ${GIT_BRANCH}
+                echo $GIT_BRANCH
+                echo $branch
                 echo "hello world"
             }
         }
