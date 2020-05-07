@@ -6,8 +6,8 @@ pipeline{
         stage('Create Gradle.Build'){
             steps{
                 script{
-                    def result = sh(script:"gradle_config.txt",returnStdout: true)
-                    print result
+                    def result = sh(script:"cat gradle_config.txt",returnStdout: true)
+                    sh """echo "${result}" > gradle_temp.txt"""
                 }
             }
         }
